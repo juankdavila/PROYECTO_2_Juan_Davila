@@ -24,6 +24,12 @@ namespace PROYECTO_2_Juan_Davila.Controllers
             return ConexionBD.GetCliente(cedula);
         }
 
+        //[HttpGet("{cedulaHistorial}")]
+        //public List<HistorialVisita> GetHistorialVisitas(string cedulaHistorial)
+        //{
+        //    return ConexionBD.GetHistorialVisita(cedulaHistorial);
+        //}
+
         // POST api/<ClientesController>
         [HttpPost]
         public void Post([FromBody] Cliente objCliente)
@@ -42,7 +48,7 @@ namespace PROYECTO_2_Juan_Davila.Controllers
         [HttpDelete("{cedula}")]
         public void Delete(string cedula)
         {
-
+            ConexionBD.DeleteCliente(cedula);
         }
     }
 }

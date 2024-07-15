@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PROYECTO_2_Juan_Davila.Comunes;
+using PROYECTO_2_Juan_Davila.Module;
+using System.Xml.Schema;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -6,38 +9,52 @@ namespace PROYECTO_2_Juan_Davila.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductoController : ControllerBase
+    public class ProductosController : ControllerBase
     {
-        // GET: api/<ProductoController>
+        // GET: api/<ProductosController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public List<Producto> Get()
         {
-            return new string[] { "value1", "value2" };
+            return ConexionBD.GetProductos();
         }
 
-        // GET api/<ProductoController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        // GET api/<ProductosController>/5
+        [HttpGet("{codigo}")]
+        public Producto Get(string codigo)
         {
-            return "value";
+            return ConexionBD.GetProducto(codigo);
         }
 
-        // POST api/<ProductoController>
+        // POST api/<ProductosController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] Producto objProducto)
         {
+            ConexionBD.PostProducto(objProducto);
         }
 
-        // PUT api/<ProductoController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // PUT api/<ProductosController>/5
+        [HttpPut("{codigo}")]
+        public void Put(string codigo, [FromBody] Producto objProducto)
         {
+            ConexionBD.PutProducto(codigo, objProducto);
         }
 
-        // DELETE api/<ProductoController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        // DELETE api/<ProductosController>/5
+        [HttpDelete("{codigo}")]
+        public void Delete(string codigo)
         {
+            ConexionBD.DeleteProducto(codigo);
         }
+
+        [HttpGet("{codigo}/{cedula}")]
+        public decimal GetPrecioPromocion(string codigo, string cedula)
+        {
+           
+            Producto objProducto = new Producto();
+            return objProducto.precio;
+
+        }
+
+
     }
 }
